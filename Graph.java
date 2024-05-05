@@ -20,6 +20,10 @@ public class Graph {
              graphInitialize();
         /*If we need bellman ford we will use the edge list only*/
     }
+    public int getSize()
+    {
+        return vertices;
+    }
     private void creategraph1()
     {
         adjlist=new ArrayList<ArrayList<Pair<Integer, Integer>>>();
@@ -113,44 +117,36 @@ public class Graph {
        boolean[] visited = new boolean[vertices];
        Arrays.fill(visited, false);
        int[] costs;
-       while (checkArray(visited) != -1) {
-           int picked=checkArray(visited);
-           costs=new int[vertices];
-           Arrays.fill(costs, Integer.MAX_VALUE);
-           costs[picked]=0;
-           visited[picked]=true;
-           for (int i = 1; i < vertices; i++)  //V-1  relaxations
-           {
-               for (edge x : edges) {
-                   if (costs[x.getFrom()] != Integer.MAX_VALUE && costs[x.getTo()] > costs[x.getFrom()] + x.getWeight()) {
-                       costs[x.getTo()] = costs[x.getFrom()] + x.getWeight();
-                       visited[x.getTo()]=true;
-                   }
 
-               }
-           }
-           //Another pass to check
+       for (int counter=0;counter<vertices;counter++)
+       {
+           if(visited[counter]==true)
+               continue;
+
+       int picked = counter;
+       costs = new int[vertices];
+       Arrays.fill(costs, Integer.MAX_VALUE);
+       costs[picked] = 0;
+       visited[picked] = true;
+       for (int i = 1; i < vertices; i++)  //V-1  relaxations
+       {
            for (edge x : edges) {
                if (costs[x.getFrom()] != Integer.MAX_VALUE && costs[x.getTo()] > costs[x.getFrom()] + x.getWeight()) {
-                   return false;
+                   costs[x.getTo()] = costs[x.getFrom()] + x.getWeight();
+                   visited[x.getTo()] = true;
                }
+
            }
-
-
        }
+       //Another pass to check
+       for (edge x : edges) {
+           if (costs[x.getFrom()] != Integer.MAX_VALUE && costs[x.getTo()] > costs[x.getFrom()] + x.getWeight()) {
+               return false;
+           }
+       }
+   }
        return true;
    }
-
-   public int checkArray(boolean[]visited)
-   {
-       int size= visited.length;
-       for (int i = 0; i < size; i++) {
-           if (visited[i]==false)
-               return i;
-       }
-       return -1;
-   }
-
 
     public boolean floyd_warshall(long[][]distances, int[][]next){
         initiate(distances, next);

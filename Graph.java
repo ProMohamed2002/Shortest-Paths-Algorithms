@@ -23,16 +23,16 @@ public class Graph {
     }
     private void creategraph1()
     {
-        adjlist=new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+        adjlist= new ArrayList<>();
         for (int i = 0; i < vertices; i++) {
-            adjlist.add(new ArrayList<Pair<Integer,Integer>>());
+            adjlist.add(new ArrayList<>());
         }
         int size=edges.size();
-        for (int i = 0; i < size; i++) {
-            int from=edges.get(i).getFrom();
-            int to=edges.get(i).getTo();
-            int cost=edges.get(i).getWeight();
-            Pair<Integer,Integer> mypair=new Pair<>(to,cost);
+        for (edge edge : edges) {
+            int from = edge.getFrom();
+            int to = edge.getTo();
+            int cost = edge.getWeight();
+            Pair<Integer, Integer> mypair = new Pair<>(to, cost);
             adjlist.get(from).add(mypair);
         }
     }
@@ -117,7 +117,7 @@ public class Graph {
 
        for (int counter=0;counter<vertices;counter++)
        {
-           if(visited[counter]==true)
+           if(visited[counter])
                continue;
 
        int picked = counter;
@@ -157,19 +157,20 @@ public class Graph {
                 }
             }
         }
-        return negativeCycleCheck(distances, next);
+        return !negativeCycleCheck(distances, next);
     }
     public long floydWarshallFindDistance(int source, int destination, long[][]distances){
         return distances[source][destination];
     }
-    public ArrayList<Integer> floydWarshallFindPath(int source, int destination, long[][] distances, int[][]next){
+    public StringBuilder floydWarshallFindPath(int source, int destination, long[][] distances, int[][]next){
+        StringBuilder path = new StringBuilder();
         if(next[source][destination] == -1 || distances[source][destination] == Integer.MIN_VALUE || distances[source][destination] == Integer.MAX_VALUE)
             return null;
 
-        ArrayList<Integer> path = new ArrayList<>();
         int nextNode = source;
         while(nextNode != destination){
-            path.add(nextNode);
+            path.append(nextNode);
+            path.append("->");
             nextNode = next[nextNode][destination];
             if(nextNode == -1)
                 return null;
@@ -177,7 +178,7 @@ public class Graph {
         if(next[nextNode][destination] == -1)
             return null;
 
-        path.add(nextNode);
+        path.append(nextNode);
         return path;
     }
     private boolean negativeCycleCheck(long[][] distances, int[][]next){
@@ -227,8 +228,8 @@ public class Graph {
         int temp=destination;
 
         if(parents[temp]>=parents.length||parents[temp]<0)
-            return "NO PATH FROM THIS SOURCE TO THAT DESTINATION";
-        Stack<Integer>Spath=new Stack<Integer>();
+            return null;
+        Stack<Integer>Spath= new Stack<>();
         while (parents[temp]!=-1)
         {
             Spath.add(temp);

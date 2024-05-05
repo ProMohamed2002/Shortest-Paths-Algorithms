@@ -30,8 +30,7 @@ public class TestDijkstra {
 //            }
 //            System.out.println();
 //        }
-        ArrayList<Integer> res = graph.floydWarshallFindPath(3, 1, distance, next);
-
+        StringBuilder res = graph.floydWarshallFindPath(4, 2, distance, next);
         System.out.println(res);
 
 //        int[] parents = new int[vertices];

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Graph {
     ArrayList<ArrayList<Pair<Integer, Integer>>> adjlist;
@@ -231,13 +228,18 @@ public class Graph {
 
         if(parents[temp]>=parents.length||parents[temp]<0)
             return "NO PATH FROM THIS SOURCE TO THAT DESTINATION";
+        Stack<Integer>Spath=new Stack<Integer>();
         while (parents[temp]!=-1)
         {
-            path=path+temp+"-> ";
+            Spath.add(temp);
             temp=parents[temp];
         }
-        path=path+temp;  //add the source
-
+        Spath.add(temp);
+        while (Spath.size()>1)
+        {
+            path=path+Spath.pop()+" -> ";
+        }
+          path=path+Spath.pop();
         return path;
     }
 

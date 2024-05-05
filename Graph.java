@@ -1,10 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Graph {
-
-    ArrayList<ArrayList<Pair<Integer, Integer>>> adjlist=new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+    ArrayList<ArrayList<Pair<Integer, Integer>>> adjlist;
     private long[][] adjMatrix;
     private final int vertices;
     private final ArrayList<edge>edges;
@@ -14,13 +14,15 @@ public class Graph {
         this.edges = edges;
          if(way.equals("Dijkstra"))
          {
-             creategraph1(vertices,edges);
+             creategraph1();
          }
-         if(way.equals("Floyd"))
+         else if(way.equals("Floyd"))
              graphInitialize();
+        /*If we need bellman ford we will use the edge list only*/
     }
-    private void creategraph1(int vertices,ArrayList<edge> edges)
+    private void creategraph1()
     {
+        adjlist=new ArrayList<ArrayList<Pair<Integer, Integer>>>();
         for (int i = 0; i < vertices; i++) {
             adjlist.add(new ArrayList<Pair<Integer,Integer>>());
         }
@@ -45,12 +47,9 @@ public class Graph {
         while (!queue.isEmpty())
         {
             int [] entry= queue.poll();
-
             if (visited[entry[0]]) continue;   //if a node get inserted in queue more than once we will consider its minimum
-
             //it is guaranteed that a node will be out of queue first time when its right
             // else it will be out if we end our work then we will continue until we end
-
             int size=adjlist.get(entry[0]).size();
             for (int i = 0; i < size; i++) {
                 Pair<Integer, Integer> neighbor=adjlist.get(entry[0]).get(i);
@@ -65,6 +64,94 @@ public class Graph {
             visited[entry[0]]=true;
         }
     }
+    public void getAllDijkstra(int [][]parents,int[][]costs)  // dijkstra all sources to all destinations
+    {
+        for (int i = 0; i < vertices; i++) {
+            Dijkstra(i,parents[i],costs[i]);
+        }
+    }
+
+   public boolean BellmanFord(int source,int []parents, int[]costs)
+   {
+        costs[source]=0;
+        parents[source]=-1;
+        for(int i=1;i<vertices;i++)  //V-1  relaxations
+        {
+            for (edge x:edges) {
+                if(costs[x.getFrom()]!=Integer.MAX_VALUE&&costs[x.getTo()]>costs[x.getFrom()]+x.getWeight())
+                {
+                    costs[x.getTo()]=costs[x.getFrom()]+x.getWeight();
+                    parents[x.getTo()]=x.getFrom();
+                }
+
+            }
+        }
+        // A once more relaxation to check
+       boolean flag=true;
+       for (edge x:edges) {
+           if(costs[x.getFrom()]!=Integer.MAX_VALUE&&costs[x.getTo()]>costs[x.getFrom()]+x.getWeight())
+           {
+                  flag=false;
+                  break;
+           }
+       }
+       return flag;
+   }
+
+   public boolean getAllBellmanFord(int[][]parents,int[][]costs)
+   {
+       boolean AllFlag=true;
+       for (int i = 0; i < vertices; i++) {
+
+               AllFlag=AllFlag&&BellmanFord(i,parents[i],costs[i]);
+       }
+       return AllFlag;
+
+   }
+
+   public boolean Check_NegativeCycle_BellmanFord() {
+       boolean[] visited = new boolean[vertices];
+       Arrays.fill(visited, false);
+       int[] costs;
+       while (checkArray(visited) != -1) {
+           int picked=checkArray(visited);
+           costs=new int[vertices];
+           Arrays.fill(costs, Integer.MAX_VALUE);
+           costs[picked]=0;
+           visited[picked]=true;
+           for (int i = 1; i < vertices; i++)  //V-1  relaxations
+           {
+               for (edge x : edges) {
+                   if (costs[x.getFrom()] != Integer.MAX_VALUE && costs[x.getTo()] > costs[x.getFrom()] + x.getWeight()) {
+                       costs[x.getTo()] = costs[x.getFrom()] + x.getWeight();
+                       visited[x.getTo()]=true;
+                   }
+
+               }
+           }
+           //Another pass to check
+           for (edge x : edges) {
+               if (costs[x.getFrom()] != Integer.MAX_VALUE && costs[x.getTo()] > costs[x.getFrom()] + x.getWeight()) {
+                   return false;
+               }
+           }
+
+
+       }
+       return true;
+   }
+
+   public int checkArray(boolean[]visited)
+   {
+       int size= visited.length;
+       for (int i = 0; i < size; i++) {
+           if (visited[i]==false)
+               return i;
+       }
+       return -1;
+   }
+
+
     public boolean floyd_warshall(long[][]distances, int[][]next){
         initiate(distances, next);
         for(int k = 0; k < vertices; k++){
@@ -141,5 +228,22 @@ public class Graph {
             adjMatrix[edge.getFrom()][edge.getTo()] = edge.getWeight();
         }
     }
+    public String generateOnePath(int source,int destination,int[]parents)
+    {
+        String path="";
+        int temp=destination;
+
+        if(parents[temp]>=parents.length||parents[temp]<0)
+            return "NO PATH FROM THIS SOURCE TO THAT DESTINATION";
+        while (parents[temp]!=-1)
+        {
+            path=path+temp+"-> ";
+            temp=parents[temp];
+        }
+        path=path+temp;  //add the source
+
+        return path;
+    }
+
 
 }

@@ -13,7 +13,7 @@ public class Graph {
          {
              creategraph1();
          }
-         else if(way.equals("Floyd"))
+         else if(way.equals("Floyd Warshall"))
              graphInitialize();
         /*If we need bellman ford we will use the edge list only*/
     }
@@ -196,9 +196,9 @@ public class Graph {
         return negativeCycle;
     }
     private void initiate(long[][]distances, int[][]next){
-        distances = adjMatrix;
         for(int i = 0; i < vertices; i++){
             for(int j = 0; j < vertices; j++){
+                distances[i][j] = adjMatrix[i][j];
                 if(distances[i][j] != Integer.MAX_VALUE)
                     next[i][j] = j;
                 else
@@ -242,6 +242,4 @@ public class Graph {
           path=path+Spath.pop();
         return path;
     }
-
-
 }

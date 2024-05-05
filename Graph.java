@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Graph {
-    ArrayList<ArrayList<Pair<Integer, Integer>>> adjlist;
+    ArrayList<ArrayList<Pair<Integer, Integer>>> adjList;
     private long[][] adjMatrix;
     private final int vertices;
     private final ArrayList<edge>edges;
@@ -11,7 +11,7 @@ public class Graph {
         this.edges = edges;
          if(way.equals("Dijkstra"))
          {
-             creategraph1();
+             createGraph();
          }
          else if(way.equals("Floyd Warshall"))
              graphInitialize();
@@ -21,11 +21,11 @@ public class Graph {
     {
         return vertices;
     }
-    private void creategraph1()
+    private void createGraph()
     {
-        adjlist= new ArrayList<>();
+        adjList = new ArrayList<>();
         for (int i = 0; i < vertices; i++) {
-            adjlist.add(new ArrayList<>());
+            adjList.add(new ArrayList<>());
         }
         int size=edges.size();
         for (edge edge : edges) {
@@ -33,7 +33,7 @@ public class Graph {
             int to = edge.getTo();
             int cost = edge.getWeight();
             Pair<Integer, Integer> mypair = new Pair<>(to, cost);
-            adjlist.get(from).add(mypair);
+            adjList.get(from).add(mypair);
         }
     }
     public void Dijkstra(int source, int[] parents,int[]costs) //fill the parents -2 for all initially, costs IntMax initially
@@ -51,9 +51,9 @@ public class Graph {
             if (visited[entry[0]]) continue;   //if a node get inserted in queue more than once we will consider its minimum
             //it is guaranteed that a node will be out of queue first time when its right
             // else it will be out if we end our work then we will continue until we end
-            int size=adjlist.get(entry[0]).size();
+            int size= adjList.get(entry[0]).size();
             for (int i = 0; i < size; i++) {
-                Pair<Integer, Integer> neighbor=adjlist.get(entry[0]).get(i);
+                Pair<Integer, Integer> neighbor= adjList.get(entry[0]).get(i);
                 if (costs[neighbor.getFirst()]>costs[entry[0]]+neighbor.getSecond())
                 {
                     costs[neighbor.getFirst()]=costs[entry[0]]+neighbor.getSecond();
@@ -170,7 +170,7 @@ public class Graph {
         int nextNode = source;
         while(nextNode != destination){
             path.append(nextNode);
-            path.append("->");
+            path.append(" -> ");
             nextNode = next[nextNode][destination];
             if(nextNode == -1)
                 return null;
@@ -224,23 +224,23 @@ public class Graph {
     }
     public String generateOnePath(int source,int destination,int[]parents)
     {
-        String path="";
+        StringBuilder path= new StringBuilder();
         int temp=destination;
 
         if(parents[temp]>=parents.length||parents[temp]<0)
             return null;
-        Stack<Integer>Spath= new Stack<>();
+        Stack<Integer>SPath= new Stack<>();
         while (parents[temp]!=-1)
         {
-            Spath.add(temp);
+            SPath.add(temp);
             temp=parents[temp];
         }
-        Spath.add(temp);
-        while (Spath.size()>1)
+        SPath.add(temp);
+        while (SPath.size()>1)
         {
-            path=path+Spath.pop()+" -> ";
+            path.append(SPath.pop()).append(" -> ");
         }
-          path=path+Spath.pop();
-        return path;
+          path.append(SPath.pop());
+        return path.toString();
     }
 }

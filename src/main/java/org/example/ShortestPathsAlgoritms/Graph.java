@@ -186,15 +186,32 @@ public class Graph {
         StringBuilder path= new StringBuilder();
         int temp=destination;
 
+        if(parents[destination]==-1)
+        {
+            path.append(destination);
+            return path;
+        }
+
         if(parents[temp]>=parents.length||parents[temp]<0)
             return null;
         Stack<Integer>SPath= new Stack<>();
+        Set<Integer>distinctnodes=new HashSet<>();
         while (parents[temp]!=-1)
         {
             SPath.add(temp);
+            int prev=distinctnodes.size();
+            distinctnodes.add(temp);
+            int current=distinctnodes.size();
+            if(current-prev!=1)
+                return null;
             temp=parents[temp];
         }
         SPath.add(temp);
+        int prev=distinctnodes.size();
+        distinctnodes.add(temp);
+        int current=distinctnodes.size();
+        if(current-prev!=1)
+            return null;
         while (SPath.size()>1)
         {
             path.append(SPath.pop()).append(" -> ");

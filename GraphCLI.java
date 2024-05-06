@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
-public class GraphCLI implements IGraphCLI{
+public class GraphCLI implements org.example.IGraphCLI {
 
 //    emojis
 //    intro

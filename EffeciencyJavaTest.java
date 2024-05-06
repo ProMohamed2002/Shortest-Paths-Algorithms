@@ -6,12 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 class EffecienceyJavaTest {
+    public static int source;
     static double sum_of_dijkstra_time=0;
     static double sum_of_bellman_time=0;
     static double sum_of_floyd_time=0;
 
     public static void main(String[] args) {
-        for (int i=1;i<=25;i++) {
+        for (int i=1;i<=20;i++) {
             String filePath = "randomgraphs\\graph"+i+".txt";
             try {
                 System.out.println("-------------------------------start test"+i+"--------------------------------------");
@@ -26,6 +27,7 @@ class EffecienceyJavaTest {
                 System.out.println("Error reading the graph file: " + e.getMessage());
             }
         }
+
         System.out.println("average time after execution ");
         getmidian();
     }
@@ -43,8 +45,7 @@ class EffecienceyJavaTest {
             edgeList.add(new edge(from, to, weight));
         }
         reader.close();
-
-
+        source = edgeList.get(0).getFrom();
         return new Graph(vertices,edgeList,way);
     }
 
@@ -54,11 +55,11 @@ class EffecienceyJavaTest {
         int[] costs = new int[graph.getSize()];
         Arrays.fill(parents, -2);
         Arrays.fill(costs, Integer.MAX_VALUE);
-        graph.Dijkstra(0, parents, costs);
+        graph.Dijkstra(source, parents, costs);
         long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000;
+        long duration = (endTime - startTime) ;
         sum_of_dijkstra_time+=duration;
-        System.out.println("Dijkstra's Algorithm Execution Time: " + duration + " ms");
+        System.out.println("Dijkstra's Algorithm Execution Time: " + duration + " ns");
 
     }
     //run bellman all
@@ -70,9 +71,9 @@ class EffecienceyJavaTest {
         Arrays.stream(bfCosts).forEach(a -> Arrays.fill(a, Integer.MAX_VALUE));
         graph.getAllBellmanFord(bfParents, bfCosts);
         long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000;
+        long duration = (endTime - startTime) ;
         sum_of_bellman_time+=duration;
-        System.out.println("Bellman-Ford Algorithm Execution Time: " + duration + " ms");
+        System.out.println("Bellman-Ford Algorithm Execution Time: " + duration + " ns");
     }
     private static void runFloydWarshall(Graph graph) {
         long startTime = System.nanoTime();
@@ -81,15 +82,15 @@ class EffecienceyJavaTest {
         Arrays.stream(distances).forEach(a -> Arrays.fill(a, Integer.MAX_VALUE));
         graph.floyd_warshall(distances, next);
         long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000;
+        long duration = (endTime - startTime) ;
         sum_of_floyd_time+=duration;
-        System.out.println("Floyd-Warshall Algorithm Execution Time: " + duration + " ms");
+        System.out.println("Floyd-Warshall Algorithm Execution Time: " + duration + " ns");
     }
     private static void getmidian()
     {
-        System.out.println("Dijkstra's Algorithm Execution Time per graph : " + sum_of_dijkstra_time/25.0 + " ms");
-        System.out.println("Bellman's Algorithm Execution Time per graph : " + sum_of_bellman_time/25.0 + " ms");
-        System.out.println("Floyd's Algorithm Execution Time per graph : " + sum_of_floyd_time/25.0 + " ms");
+        System.out.println("Dijkstra's Algorithm Execution Time per graph : " + sum_of_dijkstra_time/20.0 + " ns");
+        System.out.println("Bellman's Algorithm Execution Time per graph : " + sum_of_bellman_time/20.0 + " ns");
+        System.out.println("Floyd's Algorithm Execution Time per graph : " + sum_of_floyd_time/20.0 + " ns");
 
 
     }

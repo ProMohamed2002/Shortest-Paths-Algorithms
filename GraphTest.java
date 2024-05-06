@@ -262,7 +262,424 @@ public class GraphTest {
         boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
         assertFalse(result);
     }
+    @Test
+    void testDijkstra5Vertices() {
+        int vertices = 5;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        Graph graph = new Graph(vertices, edges, "Dijkstra");
 
+        int[] parents = new int[vertices];
+        Arrays.fill(parents,-2);
+        int[] costs = new int[vertices];
+        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.Dijkstra(0, parents, costs);
 
+        assertEquals(0, costs[0]);
+        assertEquals(1, costs[1]);
+        assertEquals(3, costs[2]);
+        assertEquals(Integer.MAX_VALUE, costs[3]);
+        assertEquals(Integer.MAX_VALUE, costs[4]);
+
+        assertEquals(-1, parents[0]);
+        assertEquals(0, parents[1]);
+        assertEquals(1, parents[2]);
+        assertEquals(-2, parents[3]);
+        assertEquals(-2, parents[4]);
+    }
+
+    @Test
+    void testDijkstra7Vertices() {
+        int vertices = 7;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        Graph graph = new Graph(vertices, edges, "Dijkstra");
+
+        int[] parents = new int[vertices];
+        Arrays.fill(parents,-2);
+        int[] costs = new int[vertices];
+        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.Dijkstra(0, parents, costs);
+
+        assertEquals(0, costs[0]);
+        assertEquals(1, costs[1]);
+        assertEquals(3, costs[2]);
+        assertEquals(Integer.MAX_VALUE, costs[3]);
+        assertEquals(Integer.MAX_VALUE, costs[4]);
+        assertEquals(Integer.MAX_VALUE, costs[5]);
+        assertEquals(Integer.MAX_VALUE, costs[6]);
+
+        assertEquals(-1, parents[0]);
+        assertEquals(0, parents[1]);
+        assertEquals(1, parents[2]);
+        assertEquals(-2, parents[3]);
+        assertEquals(-2, parents[4]);
+        assertEquals(-2, parents[5]);
+        assertEquals(-2, parents[6]);
+    }
+
+    @Test
+    void testDijkstra8Vertices() {
+        int vertices = 8;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        edges.add(new edge(5, 6, 3));
+        edges.add(new edge(6, 7, 2));
+        Graph graph = new Graph(vertices, edges, "Dijkstra");
+
+        int[] parents = new int[vertices];
+        Arrays.fill(parents,-2);
+        int[] costs = new int[vertices];
+        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.Dijkstra(0, parents, costs);
+
+        assertEquals(0, costs[0]);
+        assertEquals(1, costs[1]);
+        assertEquals(3, costs[2]);
+        assertEquals(3, costs[3]);
+        assertEquals(4, costs[4]);
+        assertEquals(9, costs[5]);
+        assertEquals(12, costs[6]);
+        assertEquals(14, costs[7]);
+
+        assertEquals(-1, parents[0]);
+        assertEquals(0, parents[1]);
+        assertEquals(1, parents[2]);
+        assertEquals(0, parents[3]);
+        assertEquals(3, parents[4]);
+        assertEquals(4, parents[5]);
+        assertEquals(5, parents[6]);
+        assertEquals(6, parents[7]);
+    }
+
+    @Test
+    void testDijkstra9Vertices() {
+        int vertices = 9;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        edges.add(new edge(5, 6, 3));
+        edges.add(new edge(6, 7, 2));
+        edges.add(new edge(7, 8, 1));
+        Graph graph = new Graph(vertices, edges, "Dijkstra");
+
+        int[] parents = new int[vertices];
+        Arrays.fill(parents,-2);
+        int[] costs = new int[vertices];
+        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.Dijkstra(0, parents, costs);
+
+        assertEquals(0, costs[0]);
+        assertEquals(1, costs[1]);
+        assertEquals(3, costs[2]);
+        assertEquals(3, costs[3]);
+        assertEquals(4, costs[4]);
+        assertEquals(9, costs[5]);
+        assertEquals(12, costs[6]);
+        assertEquals(14, costs[7]);
+        assertEquals(15, costs[8]);
+
+        assertEquals(-1, parents[0]);
+        assertEquals(0, parents[1]);
+        assertEquals(1, parents[2]);
+        assertEquals(0, parents[3]);
+        assertEquals(3, parents[4]);
+        assertEquals(4, parents[5]);
+        assertEquals(5, parents[6]);
+        assertEquals(6, parents[7]);
+        assertEquals(7, parents[8]);
+    }
+
+    @Test
+    void testDijkstra10Vertices() {
+        int vertices = 10;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        edges.add(new edge(5, 6, 3));
+        edges.add(new edge(6, 7, 2));
+        edges.add(new edge(7, 8, 1));
+        edges.add(new edge(8, 9, 4));
+        Graph graph = new Graph(vertices, edges, "Dijkstra");
+
+        int[] parents = new int[vertices];
+        Arrays.fill(parents,-2);
+        int[] costs = new int[vertices];
+        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.Dijkstra(0, parents, costs);
+
+        assertEquals(0, costs[0]);
+        assertEquals(1, costs[1]);
+        assertEquals(3, costs[2]);
+        assertEquals(3, costs[3]);
+        assertEquals(4, costs[4]);
+        assertEquals(9, costs[5]);
+        assertEquals(12, costs[6]);
+        assertEquals(14, costs[7]);
+        assertEquals(15, costs[8]);
+        assertEquals(19, costs[9]);
+
+        assertEquals(-1, parents[0]);
+        assertEquals(0, parents[1]);
+        assertEquals(1, parents[2]);
+        assertEquals(0, parents[3]);
+        assertEquals(3, parents[4]);
+        assertEquals(4, parents[5]);
+        assertEquals(5, parents[6]);
+        assertEquals(6, parents[7]);
+        assertEquals(7, parents[8]);
+        assertEquals(8, parents[9]);
+    }
+    @Test
+    void testBellmanFord8Vertices() {
+        int vertices = 8;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        Graph graph = new Graph(vertices, edges, "Bellman Ford");
+
+        int[][] bfParents = new int[vertices][vertices];
+        Arrays.fill(bfParents[0],-2);
+        for (int i = 1; i < vertices; i++) {
+            Arrays.fill(bfParents[i], -2);
+        }
+        int[][] bfCosts = new int[vertices][vertices];
+        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
+        for (int i = 1; i < vertices; i++) {
+            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
+        }
+        boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
+
+        assertTrue(result);
+        assertEquals(0, bfCosts[0][0]);
+        assertEquals(1, bfCosts[0][1]);
+        assertEquals(3, bfCosts[0][2]);
+        assertEquals(3, bfCosts[0][3]);
+        assertEquals(4, bfCosts[0][4]);
+        assertEquals(9, bfCosts[0][5]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][6]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][7]);
+
+        assertEquals(-1, bfParents[0][0]);
+        assertEquals(0, bfParents[0][1]);
+        assertEquals(1, bfParents[0][2]);
+        assertEquals(0, bfParents[0][3]);
+        assertEquals(3, bfParents[0][4]);
+        assertEquals(4, bfParents[0][5]);
+        assertEquals(-2, bfParents[0][6]);
+        assertEquals(-2, bfParents[0][7]);
+    }
+
+    @Test
+    void testFloydWarshall8Vertices() {
+        int vertices = 8;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        Graph graph = new Graph(vertices, edges, "Floyd Warshall");
+
+        long[][] distances = new long[vertices][vertices];
+        int[][] next = new int[vertices][vertices];
+        boolean result = graph.floyd_warshall(distances, next);
+
+        assertTrue(result);
+        assertEquals(0, distances[0][0]);
+        assertEquals(1, distances[0][1]);
+        assertEquals(3, distances[0][2]);
+        assertEquals(3, distances[0][3]);
+        assertEquals(4, distances[0][4]);
+        assertEquals(9, distances[0][5]);
+        assertEquals(Integer.MAX_VALUE, distances[0][6]);
+        assertEquals(Integer.MAX_VALUE, distances[0][7]);
+
+        StringBuilder path = graph.floydWarshallFindPath(0, 5, distances, next);
+        assertNotNull(path);
+        assertEquals("0 -> 3 -> 4 -> 5", path.toString());
+    }
+    @Test
+    void testBellmanFord9Vertices() {
+        int vertices = 9;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        Graph graph = new Graph(vertices, edges, "Bellman Ford");
+
+        int[][] bfParents = new int[vertices][vertices];
+        Arrays.fill(bfParents[0],-2);
+        for (int i = 1; i < vertices; i++) {
+            Arrays.fill(bfParents[i], -2);
+        }
+        int[][] bfCosts = new int[vertices][vertices];
+        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
+        for (int i = 1; i < vertices; i++) {
+            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
+        }
+        boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
+
+        assertTrue(result);
+        assertEquals(0, bfCosts[0][0]);
+        assertEquals(1, bfCosts[0][1]);
+        assertEquals(3, bfCosts[0][2]);
+        assertEquals(3, bfCosts[0][3]);
+        assertEquals(4, bfCosts[0][4]);
+        assertEquals(9, bfCosts[0][5]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][6]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][7]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][8]);
+
+        assertEquals(-1, bfParents[0][0]);
+        assertEquals(0, bfParents[0][1]);
+        assertEquals(1, bfParents[0][2]);
+        assertEquals(0, bfParents[0][3]);
+        assertEquals(3, bfParents[0][4]);
+        assertEquals(4, bfParents[0][5]);
+        assertEquals(-2, bfParents[0][6]);
+        assertEquals(-2, bfParents[0][7]);
+        assertEquals(-2, bfParents[0][8]);
+    }
+
+    @Test
+    void testFloydWarshall9Vertices() {
+        int vertices = 9;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        Graph graph = new Graph(vertices, edges, "Floyd Warshall");
+
+        long[][] distances = new long[vertices][vertices];
+        int[][] next = new int[vertices][vertices];
+        boolean result = graph.floyd_warshall(distances, next);
+
+        assertTrue(result);
+        assertEquals(0, distances[0][0]);
+        assertEquals(1, distances[0][1]);
+        assertEquals(3, distances[0][2]);
+        assertEquals(3, distances[0][3]);
+        assertEquals(4, distances[0][4]);
+        assertEquals(9, distances[0][5]);
+        assertEquals(Integer.MAX_VALUE, distances[0][6]);
+        assertEquals(Integer.MAX_VALUE, distances[0][7]);
+        assertEquals(Integer.MAX_VALUE, distances[0][8]);
+
+        StringBuilder path = graph.floydWarshallFindPath(0, 5, distances, next);
+        assertNotNull(path);
+        assertEquals("0 -> 3 -> 4 -> 5", path.toString());
+    }
+
+    @Test
+    void testBellmanFord10Vertices() {
+        int vertices = 10;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        Graph graph = new Graph(vertices, edges, "Bellman Ford");
+
+        int[][] bfParents = new int[vertices][vertices];
+        Arrays.fill(bfParents[0],-2);
+        for (int i = 1; i < vertices; i++) {
+            Arrays.fill(bfParents[i], -2);
+        }
+        int[][] bfCosts = new int[vertices][vertices];
+        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
+        for (int i = 1; i < vertices; i++) {
+            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
+        }
+        boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
+
+        assertTrue(result);
+        assertEquals(0, bfCosts[0][0]);
+        assertEquals(1, bfCosts[0][1]);
+        assertEquals(3, bfCosts[0][2]);
+        assertEquals(3, bfCosts[0][3]);
+        assertEquals(4, bfCosts[0][4]);
+        assertEquals(9, bfCosts[0][5]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][6]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][7]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][8]);
+        assertEquals(Integer.MAX_VALUE, bfCosts[0][9]);
+
+        assertEquals(-1, bfParents[0][0]);
+        assertEquals(0, bfParents[0][1]);
+        assertEquals(1, bfParents[0][2]);
+        assertEquals(0, bfParents[0][3]);
+        assertEquals(3, bfParents[0][4]);
+        assertEquals(4, bfParents[0][5]);
+        assertEquals(-2, bfParents[0][6]);
+        assertEquals(-2, bfParents[0][7]);
+        assertEquals(-2, bfParents[0][8]);
+        assertEquals(-2, bfParents[0][9]);
+    }
+
+    @Test
+    void testFloydWarshall10Vertices() {
+        int vertices = 10;
+        ArrayList<edge> edges = new ArrayList<>();
+        edges.add(new edge(0, 1, 1));
+        edges.add(new edge(1, 2, 2));
+        edges.add(new edge(0, 3, 3));
+        edges.add(new edge(2, 3, 2));
+        edges.add(new edge(3, 4, 1));
+        edges.add(new edge(4, 5, 5));
+        Graph graph = new Graph(vertices, edges, "Floyd Warshall");
+
+        long[][] distances = new long[vertices][vertices];
+        int[][] next = new int[vertices][vertices];
+        boolean result = graph.floyd_warshall(distances, next);
+
+        assertTrue(result);
+        assertEquals(0, distances[0][0]);
+        assertEquals(1, distances[0][1]);
+        assertEquals(3, distances[0][2]);
+        assertEquals(3, distances[0][3]);
+        assertEquals(4, distances[0][4]);
+        assertEquals(9, distances[0][5]);
+        assertEquals(Integer.MAX_VALUE, distances[0][6]);
+        assertEquals(Integer.MAX_VALUE, distances[0][7]);
+        assertEquals(Integer.MAX_VALUE, distances[0][8]);
+        assertEquals(Integer.MAX_VALUE, distances[0][9]);
+
+        StringBuilder path = graph.floydWarshallFindPath(0, 5, distances, next);
+        assertNotNull(path);
+        assertEquals("0 -> 3 -> 4 -> 5", path.toString());
+    }
 
 }
+
+
+
+

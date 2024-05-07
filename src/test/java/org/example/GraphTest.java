@@ -5,7 +5,6 @@ import org.example.ShortestPathsAlgoritms.edge;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +19,9 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
+
         graph.Dijkstra(0, parents, costs);
         assertEquals(0, costs[0]);
         assertEquals(1, costs[1]);
@@ -33,7 +32,7 @@ public class GraphTest {
     }
 
     @Test
-    void testBellmanFord() {
+    void testAllBellmanFord() {
         int vertices = 3;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 1));
@@ -41,15 +40,9 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[][] bfParents = new int[vertices][vertices];
-        Arrays.fill(bfParents[0],-2);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfParents[i], -2);
-        }
         int[][] bfCosts = new int[vertices][vertices];
-        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
-        }
+        graph.initALLDijkstraOrBellman(bfParents, bfCosts);
+
         boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
 
         assertTrue(result);
@@ -87,7 +80,7 @@ public class GraphTest {
     }
 
     @Test
-    void testNegativeCycleDetectionB() {
+    void testNegativeCycleBellmanFord() {
         int vertices = 3;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 1));
@@ -95,9 +88,7 @@ public class GraphTest {
         edges.add(new edge(2, 0, -5)); // introducing a negative cycle
         Graph graph = new Graph(vertices, edges);
 
-        int[][] bfParents = new int[vertices][vertices];
-        int[][] bfCosts = new int[vertices][vertices];
-        boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
+        boolean result = graph.checkNegativeCycleBellmanFord();
 
         assertFalse(result);
     }
@@ -180,7 +171,7 @@ public class GraphTest {
     }
 
     @Test
-    void testBellmanFord2() {
+    void testAllBellmanFord2() {
         int vertices = 6;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 4));
@@ -197,15 +188,9 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[][] bfParents = new int[vertices][vertices];
-        Arrays.fill(bfParents[0],-2);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfParents[i], -2);
-        }
         int[][] bfCosts = new int[vertices][vertices];
-        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
-        }
+        graph.initALLDijkstraOrBellman(bfParents, bfCosts);
+
         boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
 
         assertTrue(result);
@@ -240,9 +225,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
         graph.Dijkstra(0, parents, costs);
 
         assertEquals(0, costs[0]);
@@ -263,16 +247,15 @@ public class GraphTest {
 
 
     @Test
-    void testNegativeCycleDetectionB2() {
+    void testNegativeCycleBellmanFord2() {
         int vertices = 6;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 1));
         edges.add(new edge(1, 2, 2));
         edges.add(new edge(2, 0, -5));
         Graph graph = new Graph(vertices, edges);
-        int[][] bfParents = new int[vertices][vertices];
-        int[][] bfCosts = new int[vertices][vertices];
-        boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
+
+        boolean result = graph.checkNegativeCycleBellmanFord();
         assertFalse(result);
     }
     @Test
@@ -284,9 +267,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
         graph.Dijkstra(0, parents, costs);
 
         assertEquals(0, costs[0]);
@@ -311,9 +293,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
         graph.Dijkstra(0, parents, costs);
 
         assertEquals(0, costs[0]);
@@ -348,9 +329,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
         graph.Dijkstra(0, parents, costs);
 
         assertEquals(0, costs[0]);
@@ -388,9 +368,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
         graph.Dijkstra(0, parents, costs);
 
         assertEquals(0, costs[0]);
@@ -431,9 +410,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[] parents = new int[vertices];
-        Arrays.fill(parents,-2);
         int[] costs = new int[vertices];
-        Arrays.fill(costs,Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
         graph.Dijkstra(0, parents, costs);
 
         assertEquals(0, costs[0]);
@@ -459,7 +437,7 @@ public class GraphTest {
         assertEquals(8, parents[9]);
     }
     @Test
-    void testBellmanFord8Vertices() {
+    void testAllBellmanFord8Vertices() {
         int vertices = 8;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 1));
@@ -471,15 +449,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[][] bfParents = new int[vertices][vertices];
-        Arrays.fill(bfParents[0],-2);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfParents[i], -2);
-        }
         int[][] bfCosts = new int[vertices][vertices];
-        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
-        }
+        graph.initALLDijkstraOrBellman(bfParents, bfCosts);
         boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
 
         assertTrue(result);
@@ -535,7 +506,7 @@ public class GraphTest {
         assertEquals("0 -> 3 -> 4 -> 5", path.toString());
     }
     @Test
-    void testBellmanFord9Vertices() {
+    void testAllBellmanFord9Vertices() {
         int vertices = 9;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 1));
@@ -547,15 +518,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[][] bfParents = new int[vertices][vertices];
-        Arrays.fill(bfParents[0],-2);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfParents[i], -2);
-        }
         int[][] bfCosts = new int[vertices][vertices];
-        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
-        }
+        graph.initALLDijkstraOrBellman(bfParents, bfCosts);
         boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
 
         assertTrue(result);
@@ -615,7 +579,7 @@ public class GraphTest {
     }
 
     @Test
-    void testBellmanFord10Vertices() {
+    void testAllBellmanFord10Vertices() {
         int vertices = 10;
         ArrayList<edge> edges = new ArrayList<>();
         edges.add(new edge(0, 1, 1));
@@ -627,15 +591,8 @@ public class GraphTest {
         Graph graph = new Graph(vertices, edges);
 
         int[][] bfParents = new int[vertices][vertices];
-        Arrays.fill(bfParents[0],-2);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfParents[i], -2);
-        }
         int[][] bfCosts = new int[vertices][vertices];
-        Arrays.fill(bfCosts[0], Integer.MAX_VALUE);
-        for (int i = 1; i < vertices; i++) {
-            Arrays.fill(bfCosts[i], Integer.MAX_VALUE);
-        }
+        graph.initALLDijkstraOrBellman(bfParents, bfCosts);
         boolean result = graph.getAllBellmanFord(bfParents, bfCosts);
 
         assertTrue(result);

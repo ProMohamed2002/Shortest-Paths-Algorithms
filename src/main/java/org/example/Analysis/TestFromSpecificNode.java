@@ -16,17 +16,17 @@ class TestFromSpecificNode {
     static double sum_of_floyd_time=0;
 
     public static void main(String[] args) throws IOException {
-        for (int i=51;i<=60;i++) {
-            String filePath = "randomgraphs\\graph"+i+".txt";
+        for (int i=1;i<=5;i++) {
+            String filePath = "randomGraphs\\graph"+i+".txt";
             Graph graph = new Graph(filePath);
             System.out.println("-------------------------------start test"+i+"--------------------------------------");
             runDijkstra(graph);
             runBellmanFord(graph);
             runFloydWarshall(graph);
             System.out.println("-------------------------------finish test"+i+"-------------------------------------");
-            if(i==60) {
+            if(i%5==0) {
                 System.out.println("average time of execution for nodes = " + graph.getSize() + " is ");
-                getmidian(10);
+                getAverage(5);
                 sum_of_bellman_time=0;
                 sum_of_dijkstra_time=0;
                 sum_of_floyd_time=0;
@@ -38,8 +38,7 @@ class TestFromSpecificNode {
     private static void runDijkstra(Graph graph) {
         int[] parents = new int[graph.getSize()];
         int[] costs = new int[graph.getSize()];
-        Arrays.fill(parents, -2);
-        Arrays.fill(costs, Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
 //        start time
         long startTime = System.nanoTime();
         graph.Dijkstra(GraphFileReader.source, parents, costs);
@@ -48,15 +47,14 @@ class TestFromSpecificNode {
 //        time from source to all destinations
         long duration = (endTime - startTime);
         sum_of_dijkstra_time+=duration;
-        System.out.println("Dijkstra's Algorithm Execution Time: " + duration + " ms");
+        System.out.println("Dijkstra's Algorithm Execution Time: " + duration + " ns");
 
     }
     //run bellman ford
     private static void runBellmanFord(Graph graph) {
         int[] parents = new int[graph.getSize()];
         int[] costs = new int[graph.getSize()];
-        Arrays.fill(parents, -2);
-        Arrays.fill(costs, Integer.MAX_VALUE);
+        graph.initDijkstraOrBellman(parents, costs);
 
 //        start time
         long startTime = System.nanoTime();
@@ -67,12 +65,12 @@ class TestFromSpecificNode {
         long duration = (endTime - startTime) ;
 
         sum_of_bellman_time+=duration;
-        System.out.println("Bellman-Ford Algorithm Execution Time: " + duration + " ms");
+        System.out.println("Bellman-Ford Algorithm Execution Time: " + duration + " ns");
     }
     private static void runFloydWarshall(Graph graph) {
         int[][] distances = new int[graph.getSize()][graph.getSize()];
         int[][] next = new int[graph.getSize()][graph.getSize()];
-        Arrays.stream(distances).forEach(a -> Arrays.fill(a, Integer.MAX_VALUE));
+        graph.initFloydWarshall(distances, next);
 //        start time
         long startTime = System.nanoTime();
         graph.floydWarshall(distances, next);
@@ -85,7 +83,7 @@ class TestFromSpecificNode {
         sum_of_floyd_time+=duration ;
         System.out.println("Floyd-Warshall Algorithm Execution Time per one pair : " + duration + " ns");
     }
-    private static void getmidian(double num_of_files)
+    private static void getAverage(double num_of_files)
     {
         System.out.println("Dijkstra's Algorithm Execution Time per graph : " + sum_of_dijkstra_time/num_of_files + " ns");
         System.out.println("Bellman's Algorithm Execution Time per graph : " + sum_of_bellman_time/num_of_files + " ns");

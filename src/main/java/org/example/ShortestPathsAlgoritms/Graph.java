@@ -59,8 +59,6 @@ public class Graph {
         //fill the parents -2 for all initially, costs IntMax initially
         Arrays.fill(parents, -2);
         Arrays.fill(costs, Integer.MAX_VALUE);
-
-        System.out.println(Arrays.toString(costs));
     }
 
     public void initALLDijkstraOrBellman (int[][] parents, int[][] costs) {

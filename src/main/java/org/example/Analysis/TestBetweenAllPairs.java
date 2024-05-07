@@ -76,7 +76,6 @@ public class TestBetweenAllPairs {
         long endTime = System.nanoTime();
 //        time between all pairs
         long duration = (endTime - startTime);
-
         sum_of_floyd_time+=duration;
         System.out.println("Floyd-Warshall Algorithm Execution Time: " + duration + " ns");
     }
@@ -85,7 +84,5 @@ public class TestBetweenAllPairs {
         System.out.println("Dijkstra's Algorithm Execution Time per graph : " + sum_of_dijkstra_time/num_of_files+ " ns");
         System.out.println("Bellman's Algorithm Execution Time per graph : " + sum_of_bellman_time/num_of_files + " ns");
         System.out.println("Floyd's Algorithm Execution Time per graph : " + sum_of_floyd_time/num_of_files + " ns");
-
-
     }
 }

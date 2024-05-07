@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GraphFileReader {
+    public static int source;
     public void read (String filePath, Graph graph) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
@@ -24,6 +25,7 @@ public class GraphFileReader {
             edgeList.add(new edge(from, to, weight));
         }
         reader.close();
+        source=edgeList.get(0).getFrom();
         graph.setEdgeList(edgeList);
     }
 }

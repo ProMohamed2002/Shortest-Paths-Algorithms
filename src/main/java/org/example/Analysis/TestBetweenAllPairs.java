@@ -14,7 +14,7 @@ public class TestBetweenAllPairs {
     static double sum_of_bellman_time=0;
     static double sum_of_floyd_time=0;
     public static void main(String[] args) throws IOException {
-        for (int i=1;i<=5;i++) {
+        for (int i=1;i<=30;i++) {
             String filePath = "randomGraphs\\graph"+i+".txt";
             Graph graph = new Graph(filePath);
             System.out.println("-------------------------------start test"+i+"--------------------------------------");
@@ -22,7 +22,7 @@ public class TestBetweenAllPairs {
             runAllBellmanFord(graph);
             runFloydWarshall(graph);
             System.out.println("-------------------------------finish test"+i+"-------------------------------------");
-            if(i%5==0) {
+            if(i%5 == 0 ) {
                 System.out.println("average time of execution for nodes = " + graph.getSize() + " is ");
                 getAverage(5);
                 sum_of_bellman_time=0;

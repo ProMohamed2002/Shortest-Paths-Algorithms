@@ -122,10 +122,10 @@ public class ShortestPathsCLI extends Emojis implements IShortestPathsCLI {
 //                            initialize parents and costs
                             graph.initDijkstraOrBellman(parents, costs);
 
-                            System.out.println(Arrays.toString(costs));
 
 //                            apply algorithm
                             graph.Dijkstra(source, parents, costs);
+                            System.out.println(Arrays.toString(costs));
                         }
                         case 2 -> {
                             parents = new int[graph.getSize()];
@@ -139,7 +139,7 @@ public class ShortestPathsCLI extends Emojis implements IShortestPathsCLI {
                             next = new int[graph.getSize()][graph.getSize()];
                             allCosts = new int[graph.getSize()][graph.getSize()];
 //                            initialize parents and costs
-                            graph.initFloydWarshall(next, allCosts);
+                            graph.initFloydWarshall(allCosts, next);
 //                            apply algorithm
                             graph.floydWarshall(allCosts, next);
                         }
@@ -208,10 +208,10 @@ public class ShortestPathsCLI extends Emojis implements IShortestPathsCLI {
                                 System.out.println("Graph has negative cycles");
                         }
                         case 2 -> {
-                            next = new int[0][];
-                            allCosts = new int[0][];
+                            next = new int[graph.getSize()][graph.getSize()] ;
+                            allCosts = new int[graph.getSize()][graph.getSize()];
 //                            initialize parents and costs
-                            graph.initFloydWarshall(next, allCosts);
+                            graph.initFloydWarshall(allCosts, next);
                             if (graph.floydWarshall(allCosts, next))
                                 System.out.println("Graph hasn't negative cycles");
                             else

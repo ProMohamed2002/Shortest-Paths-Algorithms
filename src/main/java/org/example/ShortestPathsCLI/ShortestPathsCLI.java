@@ -181,7 +181,7 @@ public class ShortestPathsCLI extends Emojis implements IShortestPathsCLI {
                             next = new int[graph.getSize()][graph.getSize()];
                             allCosts = new int[graph.getSize()][graph.getSize()];
 //                            initialize parents and costs
-                            graph.initFloydWarshall(next, allCosts);
+                            graph.initFloydWarshall(allCosts, next);
 //                            apply algorithm
                             graph.floydWarshall(allCosts, next);
                         }
